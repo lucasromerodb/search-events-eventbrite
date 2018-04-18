@@ -27,4 +27,22 @@ class Ui {
         })
 
   }
+
+  showMessage(message, classes) {
+    const alert = document.createElement('div');
+    const search = document.getElementById('buscador');
+    alert.className = classes;
+    alert.appendChild(document.createTextNode(message));
+    search.appendChild(alert);
+    setTimeout(() => {
+      this.clearAlert();
+    }, 1500);
+  }
+
+  clearAlert() {
+    const alert = document.querySelector('.alert');
+    if (alert) {
+      alert.remove();
+    }
+  }
 }
