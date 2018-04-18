@@ -13,14 +13,24 @@ document.getElementById('buscarBtn').addEventListener('click', (e) => {
 
 
   // validar campo de evento requerido
+  console.log(searchInput, categorySelected, categoryInput.options[categoryInput.selectedIndex].text);
   if (searchInput !== '') {
-    console.log(searchInput, categorySelected, categoryInput.options[categoryInput.selectedIndex].text);
+
     eventbrite.getEvents(searchInput, categorySelected)
       .then(data => {
-        console.log(data);
+        if (data.events.events.length > 0) {
+          console.log(data);
+          ui.showEvents(data.events);
+        } else {
+          ui.clearEventList();
+          ui.showMessage('No hay resultados. Busca otro evento.', 'alert alert-danger mt-4')
+        }
       })
+      .catch((error) => {
+        console.log(error);
+      })
+
   } else {
-    console.log('');
     ui.showMessage('No olvides especificar qué evento buscas...', 'alert alert-danger mt-4')
   }
 });
